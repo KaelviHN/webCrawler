@@ -1,0 +1,132 @@
+{
+  "secType": 0,
+  "newsList": [
+    {
+      "id": "20240918A04SLX00",
+      "a_ver": "00",
+      "articletype": "0",
+      "title": "岑浩辉成为澳门特区第六任行政长官选举唯一被提名人",
+      "chlid": "26134",
+      "commentid": "8321924018",
+      "longtitle": "岑浩辉成为澳门特区第六任行政长官选举唯一被提名人",
+      "surl": "https://view.inews.qq.com/a/20240918A04SLX00",
+      "short_url": "https://view.inews.qq.com/a/20240918A04SLX00",
+      "url": "https://view.inews.qq.com/a/20240918A04SLX00",
+      "time": "2024-09-18 15:17:10",
+      "timestamp": 1726643830,
+      "abstract": "澳门特别行政区行政长官选举管理委员会18日发出告示，公布被接纳的行政长官选举被提名人姓名及其所有提名人姓名，岑浩辉为此次选举的唯一被提名人。澳门特别行政区第六任行政长官选举将于10月13日举行。岑浩辉，1962年5月出生。",
+      "comments": 110,
+      "alg_version": 1,
+      "card": {
+        "chlid": "26134",
+        "chlname": "新京报",
+        "desc": "新京报2003年11月11日创刊，是兼具新闻采编、社会调查、舆情分析、政务服务、金融信息、智库研究、教育培训、品牌推广、公益文创、活动会展等功能的现代综合性主流传媒机构。",
+        "icon": "http://inews.gtimg.com/newsapp_ls/0/dbg_2144844_100100/0",
+        "sicon": "http://inews.gtimg.com/newsapp_ls/0/dbg_2144844_100100/0",
+        "uin": "ec890894dcbb526e33f9921be4e9fdbe12",
+        "update_frequency": "1726814062",
+        "vip_desc": "新京报官方账号",
+        "vip_icon_night": "http://inews.gtimg.com/newsapp_ls/0/14876049528/0",
+        "vip_place": "left",
+        "vip_type": "30013",
+        "vip_icon": "http://inews.gtimg.com/newsapp_ls/0/14876049251/0",
+        "medal_info": {
+          "type_id": 31,
+          "medal_id": 45,
+          "medal_level": 1,
+          "medal_name": "别具慧眼",
+          "medal_desc": "成为荐评手，一起建设腾讯新闻社区！",
+          "night_url": "https://new.inews.gtimg.com/tnews/8c3d00f9/7f36/8c3d00f9-7f36-44a9-82c4-be357b54fe9b.png",
+          "daytime_url": "https://new.inews.gtimg.com/tnews/45af77fe/a73d/45af77fe-a73d-42d2-ab80-feaa383611de.png"
+        },
+        "vip_type_new": "30013",
+        "suid": "8QMc3nxZ7IIVuT3b",
+        "liveInfo": {
+          "roomID": "1411696158",
+          "roomStatus": "2"
+        },
+        "cpLevel": 1
+      },
+      "chlmrk": "新京报2003年11月11日创刊，是兼具新闻采编、社会调查、舆情分析、政务服务、金融信息、智库研究、教育培训、品牌推广、公益文创、活动会展等功能的现代综合性主流传媒机构。",
+      "chlsicon": "http://inews.gtimg.com/newsapp_ls/0/dbg_2144844_100100/0",
+      "media_id": "26134",
+      "chlname": "新京报",
+      "source": "新京报",
+      "chlicon": "http://inews.gtimg.com/newsapp_ls/0/dbg_2144844_100100/0",
+      "qualityScore": "3",
+      "uinnick": "新京报",
+      "uinname": "26134",
+      "tag": [
+        ""
+      ],
+      "commentGifSwitch": 1,
+      "forbidCommentUpDown": 1,
+      "forbidExpr": 1,
+      "emojiRelatedSwitch": 1,
+      "emojiSwitch": 1,
+      "openAds": 1,
+      "openAdsText": 1,
+      "openRelatedNewsAd": 1,
+      "openAdsComment": 1,
+      "show_expr": 1,
+      "seq_no": "1726814811633932862$$$-3---0-0-87-0-99-99-0---0--0",
+      "showType_video": "normal",
+      "picShowType": 87,
+      "thumbnails": [
+        "https://inews.gtimg.com/om_ls/O7E606MqWnVQ3TmJvm82jnZHq68iX6GFV4lvoKb2ccwJsAA_150120/0"
+      ],
+      "thumbnails_big": [
+        "https://inews.gtimg.com/om_ls/O7E606MqWnVQ3TmJvm82jnZHq68iX6GFV4lvoKb2ccwJsAA_640330/0"
+      ],
+      "bigImage": [
+        "https://inews.gtimg.com/om_ls/O7E606MqWnVQ3TmJvm82jnZHq68iX6GFV4lvoKb2ccwJsAA_640330/0"
+      ],
+      "thumbnails_qqnews_photo": [
+        "https://inews.gtimg.com/om_ls/O7E606MqWnVQ3TmJvm82jnZHq68iX6GFV4lvoKb2ccwJsAA_870492/0"
+      ],
+      "thumbnails_qqnews": [
+        "https://inews.gtimg.com/om_ls/O7E606MqWnVQ3TmJvm82jnZHq68iX6GFV4lvoKb2ccwJsAA_870492/0"
+      ],
+      "newsModule": {},
+      "labelList": [
+        {
+          "color": "#999999",
+          "nightColor": "#696969",
+          "textColor": "#999999",
+          "textNightColor": "#696969",
+          "word": "新京报",
+          "type": 1,
+          "typeName": "source"
+        }
+      ],
+      "readCount": 49382,
+      "shareUrl": "https://view.inews.qq.com/a/20240918A04SLX00",
+      "likeInfo": 144,
+      "commentNum": 110,
+      "gifRelatedSwitch": 1,
+      "commentSyncWeibo": 1,
+      "tmp3pic": [
+        "https://inews.gtimg.com/om_ls/O7E606MqWnVQ3TmJvm82jnZHq68iX6GFV4lvoKb2ccwJsAA_870492/0"
+      ],
+      "miniProShareImage": "https://inews.gtimg.com/om_ls/O7E606MqWnVQ3TmJvm82jnZHq68iX6GFV4lvoKb2ccwJsAA_870492/0",
+      "textShareType": "1",
+      "enableDiffusion": 1,
+      "shareCount": 85,
+      "transparam": "{\"sessionid\":\"1726814811633932862\"}",
+      "NewsSource": "1:",
+      "pubInfo": {
+        "source": "2",
+        "sub_source": "0"
+      },
+      "fimgUrl": {},
+      "nlpAbstract": "澳门特别行政区行政长官选举管理委员会18日发出告示，公布被接纳的行政长官选举被提名人姓名及其所有提名人姓名，岑浩辉为此次选举的唯一被提名人。澳门特别行政区第六任行政长官选举将于10月13日举行。岑浩辉，1962年5月出生。",
+      "nlpContentAbstract": "澳门特别行政区行政长官选举管理委员会18日发出告示，公布被接纳的行政长官选举被提名人姓名及其所有提名人姓名，岑浩辉为此次选举的唯一被提名人。",
+      "collect_count": 22,
+      "switch_control": {},
+      "extra_property": {},
+      "userAddress": "北京"
+    }
+  ],
+  "component": "top_show",
+  "needSpecialTheme": 1
+}
