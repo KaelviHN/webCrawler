@@ -5,7 +5,7 @@ import com.bda.common.RequestUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.SneakyThrows;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -43,7 +43,30 @@ public class NTES {
         Document document = Jsoup.parse(infos);
         Matcher matcher = Pattern.compile("(\\d+)").matcher(document.getElementsByClass("keyword_title").get(0).text());
         Integer total = Integer.valueOf(matcher.find() ? matcher.group(1) : "0");
-
+        Elements newsList = document.getElementsByClass("keyword_new keyword_new_none ");
+        for (Element element : newsList) {
+            Element link = element.select("a").first();
+            if (link == null) continue;
+            String url = link.attr("href");
+            String title = link.text();
+            Element authorTag = element.getElementsByClass("keyword_source").first();
+            String author = authorTag != null ? authorTag.text() : "";
+            String contentPage = RequestUtil.commonGet(url, header);
+            Document content = Jsoup.parse(contentPage);
+            String postBody = content.getElementsByClass("post_body").text();
+            String post_info = content.getElementsByClass("post_info").text();
+            String time = post_info.split("来源")[0].trim();
+            if (StringUtils.isBlank(author)) {
+                author = post_info.split("来源")[1].split(" ")[0];
+            }
+            PostNews postNews = PostNews.builder()
+                    .title(title).url(url)
+                    .author(author).time(time)
+                    .content(postBody)
+                    .build();
+            System.out.println("postNews = " + postNews);
+            break;
+        }
         return res;
     }
 

@@ -74,14 +74,11 @@ public class RequestUtil {
         StringBuilder response = new StringBuilder();
         // 获取响应编码
         String encoding = connection.getContentEncoding();
-        if (encoding == null) {
-            encoding = "UTF-8"; // 默认使用 UTF-8
-        }
         InputStream inputStream = connection.getInputStream();
         if ("gzip".equalsIgnoreCase(encoding)) {
             inputStream = new GZIPInputStream(inputStream);
         }
-        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, encoding));
+        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
