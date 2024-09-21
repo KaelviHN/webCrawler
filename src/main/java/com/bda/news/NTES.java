@@ -43,6 +43,7 @@ public class NTES {
         Document document = Jsoup.parse(infos);
         Matcher matcher = Pattern.compile("(\\d+)").matcher(document.getElementsByClass("keyword_title").get(0).text());
         Integer total = Integer.valueOf(matcher.find() ? matcher.group(1) : "0");
+        System.out.println("total = " + total);
         Elements newsList = document.getElementsByClass("keyword_new keyword_new_none ");
         for (Element element : newsList) {
             Element link = element.select("a").first();
@@ -65,7 +66,6 @@ public class NTES {
                     .content(postBody)
                     .build();
             System.out.println("postNews = " + postNews);
-            break;
         }
         return res;
     }
