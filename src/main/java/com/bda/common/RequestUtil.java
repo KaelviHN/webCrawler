@@ -29,6 +29,9 @@ public class RequestUtil {
         URL url = new URL(address);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         header.forEach((key, value) -> connection.setRequestProperty(key, String.valueOf(value)));
+        // 设置请求头，模拟浏览器访问
+        connection.setRequestProperty("User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36");
         return getResponse(connection);
     }
 
@@ -39,7 +42,7 @@ public class RequestUtil {
      * @return
      */
     @SneakyThrows
-    public static String commonPost(String url, Map<String, Object> params) {
+    public static String commonPost(String url, Map<String, Object> params,Map<String,Object> header) {
         // 获取连接
         URL urlObject = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
@@ -47,6 +50,13 @@ public class RequestUtil {
         connection.setRequestMethod("POST");
         // 设置请求头
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        // 设置请求头，模拟浏览器访问
+        connection.setRequestProperty("User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36");
+
+        for (Map.Entry<String, Object> entry : header.entrySet()) {
+            connection.setRequestProperty(entry.getKey(), (String) entry.getValue());
+        }
         connection.setDoOutput(true);
         // 构造表单数据
         StringBuilder postData = new StringBuilder();

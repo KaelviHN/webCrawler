@@ -16,9 +16,24 @@ public class JsonNodeUtil {
      * @param names
      * @return
      */
-    public static String parseElement(JsonNode node, String... names) {
+    public static <T> T parseElement(JsonNode node, Class<T> clazz, String... names) {
         node = parseNode(node, names);
-        return node != null ? node.asText() : null;
+        if (node == null) {
+            return null;
+        }
+        if (clazz.equals(Integer.class)) {
+            return clazz.cast(node.asInt());
+        } else if (clazz.equals(Long.class)) {
+            return clazz.cast(node.asLong());
+        } else if (clazz.equals(Double.class)) {
+            return clazz.cast(node.asDouble());
+        } else if (clazz.equals(Boolean.class)) {
+            return clazz.cast(node.asBoolean());
+        } else if (clazz.equals(String.class)) {
+            return clazz.cast(node.asText());
+        } else {
+            throw new IllegalArgumentException("Unsupported type: " + clazz.getName());
+        }
     }
 
     /**

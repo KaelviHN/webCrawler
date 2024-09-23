@@ -5,6 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author: anran.ma
  * @created: 2024/9/20
@@ -21,4 +26,9 @@ public class PostNews {
     private String time;
     private String content;
     private String like;
+
+    public static String patternTime(String timestamp) {
+        ZonedDateTime dateTime = Instant.ofEpochMilli(Long.parseLong(timestamp)).atZone(ZoneId.systemDefault());
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
 }
