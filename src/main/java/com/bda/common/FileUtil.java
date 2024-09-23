@@ -1,6 +1,7 @@
 package com.bda.common;
 
 import com.bda.WebCrawlerApplication;
+import com.bda.stock.Index;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -54,7 +55,7 @@ public class FileUtil {
     @SneakyThrows
     public static <T> void writeHistory(String path, List<T> indices, String name) {
         String content = new ObjectMapper().writeValueAsString(indices);
-        String filePath = path + "\\" + name;
+        String filePath = path + "/" + name;
         try (FileWriter fileWriter = new FileWriter(filePath, false)) {
             fileWriter.write(content);
         } catch (IOException e) {

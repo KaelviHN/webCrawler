@@ -1,7 +1,6 @@
 package com.bda.stock;
 
 import com.bda.common.FileUtil;
-import com.bda.common.Index;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -44,7 +43,6 @@ public class WebCrawlerUtils {
     public static final String MINUTE_FORMAT = "yyyyMMddHHmm";
     public static final String SECOND_FORMAT = "yyyyMMddHHmmss";
     public static final String DAY_FORMAT = "yyyyMMdd";
-    private static final Log log = LogFactory.getLog(WebCrawlerUtils.class);
 
     public static String hsiTime = "";
     public static String hkTime = "";
@@ -55,7 +53,7 @@ public class WebCrawlerUtils {
     public static String macRealTime = "";
 
     public static void realTask(String jarPath) {
-        String time = getTime();
+        String time = getTime(DAY_FORMAT);
         String urlHK = "https://finance.pae.baidu.com/vapi/v1/getquotation?group=huilv_minute&need_reverse_real=1&code=HKDCNY&finClientType=pc";
         String urlMAC = "https://finance.pae.baidu.com/vapi/v1/getquotation?group=huilv_minute&need_reverse_real=1&code=MOPCNY&finClientType=pc";
         String urlHSI = "https://finance.pae.baidu.com/vapi/v1/getquotation?srcid=5353&all=1&pointType=string&group=quotation_index_minute&query=HSI&code=HSI&market_type=hk&newFormat=1&name=%E6%81%92%E7%94%9F%E6%8C%87%E6%95%B0&finClientType=pc";
@@ -80,7 +78,7 @@ public class WebCrawlerUtils {
     }
 
     public static void minute(String path) {
-        String time = getTime();
+        String time = getTime(MINUTE_FORMAT);
         String urlHK = "https://finance.pae.baidu.com/vapi/v1/getquotation?group=huilv_minute&need_reverse_real=1&code=HKDCNY&finClientType=pc";
         String urlMAC = "https://finance.pae.baidu.com/vapi/v1/getquotation?group=huilv_minute&need_reverse_real=1&code=MOPCNY&finClientType=pc";
         String urlHSI = "https://finance.pae.baidu.com/vapi/v1/getquotation?srcid=5353&all=1&pointType=string&group=quotation_index_minute&query=HSI&code=HSI&market_type=hk&newFormat=1&name=%E6%81%92%E7%94%9F%E6%8C%87%E6%95%B0&finClientType=pc";
@@ -320,9 +318,9 @@ public class WebCrawlerUtils {
         return datas;
     }
 
-    public static String getTime() {
+    public static String getTime(String pattern) {
         LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(pattern);
         return dateTime.format(format);
     }
 

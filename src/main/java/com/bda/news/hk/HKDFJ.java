@@ -31,18 +31,38 @@ public class HKDFJ {
         while (year >= 2012) {
             String url = "https://www.doj.gov.hk/tc/archive/notable_criminal_" + year + ".html";
             Document searchList = Jsoup.parse(proxyGet(url, proxyHost, proxyPort));
-            Elements elements = searchList.getElementsByClass("tblRow");
+            Elements elements;
+            try {
+                elements = searchList.getElementsByClass("tblRow");
+            } catch (Exception e) {
+                System.out.println("e = " + e + "url = " + url);
+                continue;
+            }
             for (Element element : elements) {
-                String infoUrl = element.selectFirst("a").attr("href");
-                Document content = Jsoup.parse(proxyGet(infoUrl, proxyHost, proxyPort));
-                Document header = Jsoup.parse(proxyGet("https://legalref.judiciary.hk/lrs/common/search/" + content.selectFirst("frame[name=topFrame]").attr("src"), proxyHost, proxyPort));
+                Element at = element.selectFirst("a");
+                if (at == null) continue;
+                String infoUrl = at.attr("href");
+                Document content = null;
+                Document header = null;
+                try {
+                    content = Jsoup.parse(proxyGet(infoUrl, proxyHost, proxyPort));
+                    Element top = content.selectFirst("frame[name=topFrame]");
+                    if (top == null) continue;
+                    header = Jsoup.parse(proxyGet("https://legalref.judiciary.hk/lrs/common/search/" + top.attr("src"), proxyHost, proxyPort));
+                } catch (IOException e) {
+                    continue;
+                }
                 Elements aTags = header.select("a");
                 for (Element aTag : aTags) {
                     if (aTag.text().equals("瀏覽word") && StringUtils.isNotBlank(aTag.attr("href")) && aTag.attr("href").endsWith(".docx")) {
                         String downloadUrl = "https://legalref.judiciary.hk/" + aTag.attr("href");
                         String[] split = downloadUrl.split("/");
                         String fileName = split[split.length - 1];
-                        downloadFile(downloadUrl, "C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\HKDFJ\\document\\"+fileName, proxyHost, proxyPort);
+                        try {
+                            downloadFile(downloadUrl, "C:\\Users\\anran\\Desktop\\webCrawler\\src\\main\\resources\\news\\HKDFJ\\document\\" + fileName, proxyHost, proxyPort);
+                        } catch (IOException e) {
+                            continue;
+                        }
                     }
                 }
             }
@@ -50,7 +70,7 @@ public class HKDFJ {
         }
     }
 
-    public static String proxyGet(String url, String proxyHost, int proxyPort) {
+    public static String proxyGet(String url, String proxyHost, int proxyPort) throws IOException {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
         // 创建 OkHttpClient 并设置代理
         OkHttpClient client = new OkHttpClient.Builder()
@@ -61,11 +81,8 @@ public class HKDFJ {
                 .url(url)
                 .header("User-Agent", "Mozilla/5.0")
                 .build();
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 
     public static void downloadFile(String fileURL, String savePath, String proxyHost, int proxyPort) throws IOException {
@@ -91,9 +108,6 @@ public class HKDFJ {
 
             outputStream.close();
             inputStream.close();
-            System.out.println("文件下载成功: " + savePath);
-        } else {
-            System.out.println("文件下载失败，响应码: " + responseCode);
         }
 
         httpConn.disconnect();
@@ -101,6 +115,10 @@ public class HKDFJ {
 
 
     public static void main(String[] args) throws IOException {
-        search("127.0.0.1", 7890);
+
+        String html = proxyGet("https://legalref.judiciary.hk/lrs/common/search/search_result_detail_frame.jsp?DIS=118318&QS=%2B&TP=JU&ILAN=tc",
+                "127.0.0.1",
+                7890);
+        System.out.println("html = " + html);
     }
 }

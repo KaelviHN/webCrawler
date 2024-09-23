@@ -1,6 +1,5 @@
-package com.bda.common;
+package com.bda.stock;
 
-import com.bda.stock.WebCrawlerUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

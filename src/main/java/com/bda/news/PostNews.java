@@ -1,4 +1,4 @@
-package com.bda.common;
+package com.bda.news;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

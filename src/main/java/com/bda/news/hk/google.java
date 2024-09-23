@@ -1,13 +1,10 @@
 package com.bda.news.hk;
 
-import com.bda.common.PostNews;
+import com.bda.news.PostNews;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import com.google.common.collect.Lists;

@@ -1,7 +1,7 @@
 package com.bda.news.ChineseMainland;
 
 import com.bda.common.FileUtil;
-import com.bda.common.PostNews;
+import com.bda.news.PostNews;
 import com.bda.common.RequestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;

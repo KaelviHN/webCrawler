@@ -1,6 +1,9 @@
-package com.bda.common;
+package com.bda.stock;
 
-import com.bda.stock.WebCrawlerUtils;
+import com.bda.common.Config;
+import com.bda.common.DynamicTaskScheduler;
+import com.bda.common.FileUtil;
+import com.bda.common.SFTPUtil;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.commons.logging.Log;
