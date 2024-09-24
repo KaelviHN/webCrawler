@@ -1,4 +1,4 @@
-package com.bda.news.ChineseMainland;
+package com.bda.news.chineseMainland;
 
 import com.bda.common.FileUtil;
 import com.bda.news.PostNews;

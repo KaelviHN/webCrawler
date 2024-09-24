@@ -1,4 +1,4 @@
-package com.bda.news.hk;
+package com.bda.news.hongKong;
 
 import com.bda.news.PostNews;
 

@@ -1,8 +1,14 @@
 package com.bda.stock;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author: anran.ma
@@ -10,6 +16,7 @@ import lombok.NoArgsConstructor;
  * @description:
  **/
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Index {
@@ -69,41 +76,19 @@ public class Index {
      */
     private String time;
 
-    public Index(String name, String price, String timestamp, String preClose, String open, String ratio, String amount, String avgPrice, String increase,String format) {
-        this.name = name;
-        this.price = price;
-        this.timestamp = timestamp;
-        this.preClose = preClose;
-        this.open = open;
-        this.ratio = ratio;
-        this.amount = amount;
-        this.avgPrice = avgPrice;
-        this.increase = increase;
-        this.time = WebCrawlerUtils.patternTime(timestamp, format);
-    }
+    /**
+     * 振幅
+     */
+    private String amplitudeRatio;
 
-    public Index(String name, String price, String timestamp, String increase, String ratio, String format) {
-        this.name = name;
-        this.price = price;
-        this.timestamp = timestamp;
-        this.increase = increase;
-        this.ratio = ratio;
-        this.time = WebCrawlerUtils.patternTime(timestamp, format);
-    }
+    /**
+     * 总成交额
+     */
+    private String totalAmount;
 
-    public Index(String name, String timestamp, String open, String close, String amount, String increase, String ratio, String high, String low,String preClose,String price,String format) {
-        this.name = name;
-        this.timestamp = timestamp;
-        this.open = open;
-        this.close = close;
-        this.amount = amount;
-        this.increase = increase;
-        this.ratio = ratio;
-        this.high = high;
-        this.low = low;
-        this.preClose = preClose;
-        this.price = price;
-        this.time = WebCrawlerUtils.patternTime(timestamp, format);
+    public static String patternTime(String timestamp, String format) {
+        ZonedDateTime dateTime = Instant.ofEpochSecond(Long.parseLong(timestamp)).atZone(ZoneId.systemDefault());
+        return dateTime.format(DateTimeFormatter.ofPattern(format));
     }
 
 

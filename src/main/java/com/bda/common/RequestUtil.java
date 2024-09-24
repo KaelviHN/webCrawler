@@ -1,14 +1,12 @@
 package com.bda.common;
 
 import lombok.SneakyThrows;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.io.*;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
@@ -95,5 +93,20 @@ public class RequestUtil {
         }
         in.close();
         return response.toString();
+    }
+
+    public static String proxyGet(String url, String proxyHost, int proxyPort) throws IOException {
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
+        // 创建 OkHttpClient 并设置代理
+        OkHttpClient client = new OkHttpClient.Builder()
+                .proxy(proxy)
+                .build();
+        // 发送请求
+        Request request = new Request.Builder()
+                .url(url)
+                .header("User-Agent", "Mozilla/5.0")
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 }

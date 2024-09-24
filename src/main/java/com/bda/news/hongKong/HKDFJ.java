@@ -1,5 +1,6 @@
-package com.bda.news.hk;
+package com.bda.news.hongKong;
 
+import com.bda.common.RequestUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -26,11 +27,11 @@ import java.util.Calendar;
  **/
 public class HKDFJ {
     //download https://legalref.judiciary.hk/doc/judg/word/vetted/other/en/2018/CACC000142A_2018.docx
-    public static void search(String proxyHost, int proxyPort) throws IOException {
+    public static void search(String proxyHost, int proxyPort, String path) throws IOException {
         int year = Calendar.getInstance().get(Calendar.YEAR) - 1;
         while (year >= 2012) {
             String url = "https://www.doj.gov.hk/tc/archive/notable_criminal_" + year + ".html";
-            Document searchList = Jsoup.parse(proxyGet(url, proxyHost, proxyPort));
+            Document searchList = Jsoup.parse(RequestUtil.proxyGet(url, proxyHost, proxyPort));
             Elements elements;
             try {
                 elements = searchList.getElementsByClass("tblRow");
@@ -45,10 +46,10 @@ public class HKDFJ {
                 Document content = null;
                 Document header = null;
                 try {
-                    content = Jsoup.parse(proxyGet(infoUrl, proxyHost, proxyPort));
+                    content = Jsoup.parse(RequestUtil.proxyGet(infoUrl, proxyHost, proxyPort));
                     Element top = content.selectFirst("frame[name=topFrame]");
                     if (top == null) continue;
-                    header = Jsoup.parse(proxyGet("https://legalref.judiciary.hk/lrs/common/search/" + top.attr("src"), proxyHost, proxyPort));
+                    header = Jsoup.parse(RequestUtil.proxyGet("https://legalref.judiciary.hk/lrs/common/search/" + top.attr("src"), proxyHost, proxyPort));
                 } catch (IOException e) {
                     continue;
                 }
@@ -59,7 +60,7 @@ public class HKDFJ {
                         String[] split = downloadUrl.split("/");
                         String fileName = split[split.length - 1];
                         try {
-                            downloadFile(downloadUrl, "C:\\Users\\anran\\Desktop\\webCrawler\\src\\main\\resources\\news\\HKDFJ\\document\\" + fileName, proxyHost, proxyPort);
+                            downloadFile(downloadUrl, path + fileName, proxyHost, proxyPort);
                         } catch (IOException e) {
                             continue;
                         }
@@ -70,20 +71,7 @@ public class HKDFJ {
         }
     }
 
-    public static String proxyGet(String url, String proxyHost, int proxyPort) throws IOException {
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
-        // 创建 OkHttpClient 并设置代理
-        OkHttpClient client = new OkHttpClient.Builder()
-                .proxy(proxy)
-                .build();
-        // 发送请求
-        Request request = new Request.Builder()
-                .url(url)
-                .header("User-Agent", "Mozilla/5.0")
-                .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
-    }
+
 
     public static void downloadFile(String fileURL, String savePath, String proxyHost, int proxyPort) throws IOException {
         URL url = new URL(fileURL);
@@ -115,10 +103,6 @@ public class HKDFJ {
 
 
     public static void main(String[] args) throws IOException {
-
-        String html = proxyGet("https://legalref.judiciary.hk/lrs/common/search/search_result_detail_frame.jsp?DIS=118318&QS=%2B&TP=JU&ILAN=tc",
-                "127.0.0.1",
-                7890);
-        System.out.println("html = " + html);
+        search("127.0.0.1", 7890,"C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\HKDFJ\\docx\\");
     }
 }

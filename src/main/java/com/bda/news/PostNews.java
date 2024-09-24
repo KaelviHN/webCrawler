@@ -26,6 +26,7 @@ public class PostNews {
     private String time;
     private String content;
     private String like;
+    private String views;
 
     public static String patternTime(String timestamp) {
         ZonedDateTime dateTime = Instant.ofEpochMilli(Long.parseLong(timestamp)).atZone(ZoneId.systemDefault());

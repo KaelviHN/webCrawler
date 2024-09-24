@@ -120,7 +120,7 @@ public class TaskInitializer {
     /**
      * 刷新文件名
      */
-    @Scheduled(fixedRate = 3600000)
+    @Scheduled(cron = "0 0 0 * * *")
     public void refreshFileName(){
         try {
             if (lock.tryLock(10, TimeUnit.SECONDS)) {
