@@ -43,6 +43,7 @@ public class WebCrawlerUtils {
     public static final String MINUTE_FORMAT = "yyyyMMddHHmm";
     public static final String SECOND_FORMAT = "yyyyMMddHHmmss";
     public static final String DAY_FORMAT = "yyyyMMdd";
+    private static final Log log = LogFactory.getLog(WebCrawlerUtils.class);
 
     public static String hsiTime = "";
     public static String hkTime = "";
@@ -53,6 +54,7 @@ public class WebCrawlerUtils {
     public static String macRealTime = "";
 
     public static void realTask(String jarPath) {
+        Instant now = Instant.now();
         String time = getTime(DAY_FORMAT);
         String urlHK = "https://finance.pae.baidu.com/vapi/v1/getquotation?group=huilv_minute&need_reverse_real=1&code=HKDCNY&finClientType=pc";
         String urlMAC = "https://finance.pae.baidu.com/vapi/v1/getquotation?group=huilv_minute&need_reverse_real=1&code=MOPCNY&finClientType=pc";
@@ -66,15 +68,18 @@ public class WebCrawlerUtils {
         if (hkRealTime.isEmpty()) {
             hkRealTime = time;
         }
-        FileUtil.appendJsonToFile(SECOND_PREFIX + HK_PREFIX + "_" + hkRealTime + SUFFIX, jarPath, hkIdx);
+        if (isClose(hkIdx.getTimestamp(), now))
+            FileUtil.appendJsonToFile(SECOND_PREFIX + HK_PREFIX + "_" + hkRealTime + SUFFIX, jarPath, hkIdx);
         if (macRealTime.isEmpty()) {
             macRealTime = time;
         }
-        FileUtil.appendJsonToFile(SECOND_PREFIX + MAC_PREFIX + "_" + macRealTime + SUFFIX, jarPath, macIdx);
+        if (isClose(macIdx.getTimestamp(), now))
+            FileUtil.appendJsonToFile(SECOND_PREFIX + MAC_PREFIX + "_" + macRealTime + SUFFIX, jarPath, macIdx);
         if (hsiRealTime.isEmpty()) {
             hsiRealTime = time;
         }
-        FileUtil.appendJsonToFile(SECOND_PREFIX + HSI_PREFIX + "_" + hsiRealTime + SUFFIX, jarPath, hsiIdx);
+        if (isClose(hsiIdx.getTimestamp(), now))
+            FileUtil.appendJsonToFile(SECOND_PREFIX + HSI_PREFIX + "_" + hsiRealTime + SUFFIX, jarPath, hsiIdx);
     }
 
     public static void minute(String path) {
@@ -85,9 +90,9 @@ public class WebCrawlerUtils {
         String hk = loadJson(urlHK);
         String mac = loadJson(urlMAC);
         String hsi = loadJson(urlHSI);
-        List<Index> indicesHK = parseK(hk, HK, MINUTE_FORMAT,true);
-        List<Index> indicesMac = parseK(mac, MAC, MINUTE_FORMAT,true);
-        List<Index> indicesHSI = parseK(hsi, HSI, MINUTE_FORMAT,true);
+        List<Index> indicesHK = parseK(hk, HK, MINUTE_FORMAT, true);
+        List<Index> indicesMac = parseK(mac, MAC, MINUTE_FORMAT, true);
+        List<Index> indicesHSI = parseK(hsi, HSI, MINUTE_FORMAT, true);
         Index hkHeader = parseExchange(hk, HK);
         Index macHeader = parseExchange(mac, MAC);
         Index hsiHeader = parseStock(hsi, HSI);
@@ -125,9 +130,9 @@ public class WebCrawlerUtils {
         String hsiIdx = loadJson(urlHSI);
         String macIdx = loadJson(urlMAC);
         String hkIdx = loadJson(urlHK);
-        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT,false);
-        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT,false);
-        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT,false);
+        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT, false);
+        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT, false);
+        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT, false);
         if (!CollectionUtils.isEmpty(indicesHK)) {
             String time = Index.patternTime(indicesHK.get(indicesHK.size() - 1).getTimestamp(), DAY_FORMAT);
             FileUtil.writeHistory(path, indicesHK, DAY_PREFIX + HK_PREFIX + "_" + time + SUFFIX);
@@ -160,9 +165,9 @@ public class WebCrawlerUtils {
         String hsiIdx = loadJson(urlHSI);
         String macIdx = loadJson(urlMAC);
         String hkIdx = loadJson(urlHK);
-        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT,false);
-        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT,false);
-        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT,false);
+        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT, false);
+        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT, false);
+        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT, false);
         if (!CollectionUtils.isEmpty(indicesHK)) {
             String time = Index.patternTime(indicesHK.get(indicesHK.size() - 1).getTimestamp(), DAY_FORMAT);
             FileUtil.writeHistory(path, indicesHK, WEEK_PREFIX + HK_PREFIX + "_" + time + SUFFIX);
@@ -185,9 +190,9 @@ public class WebCrawlerUtils {
         String hsiIdx = loadJson(urlHSI);
         String macIdx = loadJson(urlMAC);
         String hkIdx = loadJson(urlHK);
-        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT,false);
-        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT,false);
-        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT,false);
+        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT, false);
+        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT, false);
+        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT, false);
         if (!CollectionUtils.isEmpty(indicesHK)) {
             String time = Index.patternTime(indicesHK.get(indicesHK.size() - 1).getTimestamp(), DAY_FORMAT);
             FileUtil.writeHistory(path, indicesHK, MONTH_PREFIX + HK_PREFIX + "_" + time + SUFFIX);
@@ -211,9 +216,9 @@ public class WebCrawlerUtils {
         String hsiIdx = loadJson(urlHSI);
         String macIdx = loadJson(urlMAC);
         String hkIdx = loadJson(urlHK);
-        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT,false);
-        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT,false);
-        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT,false);
+        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT, false);
+        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT, false);
+        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT, false);
         if (!CollectionUtils.isEmpty(indicesHK)) {
             String time = Index.patternTime(indicesHK.get(indicesHK.size() - 1).getTimestamp(), DAY_FORMAT);
             FileUtil.writeHistory(path, indicesHK, QUARTER_PREFIX + HK_PREFIX + "_" + time + SUFFIX);
@@ -237,9 +242,9 @@ public class WebCrawlerUtils {
         String hsiIdx = loadJson(urlHSI);
         String macIdx = loadJson(urlMAC);
         String hkIdx = loadJson(urlHK);
-        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT,false);
-        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT,false);
-        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT,false);
+        List<Index> indicesHSI = parseK(hsiIdx, HSI, DAY_FORMAT, false);
+        List<Index> indicesMac = parseK(macIdx, MAC, DAY_FORMAT, false);
+        List<Index> indicesHK = parseK(hkIdx, HK, DAY_FORMAT, false);
         if (!CollectionUtils.isEmpty(indicesHK)) {
             String time = Index.patternTime(indicesHK.get(indicesHK.size() - 1).getTimestamp(), DAY_FORMAT);
             FileUtil.writeHistory(path, indicesHK, YEAR_PREFIX + HK_PREFIX + "_" + time + SUFFIX);
@@ -345,7 +350,7 @@ public class WebCrawlerUtils {
         Index index = Index.builder()
                 .name(idx).price(price)
                 .timestamp(timestamp).ratio(ratio)
-                .increase(increase).time(Index.patternTime(timestamp,SECOND_FORMAT))
+                .increase(increase).time(Index.patternTime(timestamp, SECOND_FORMAT))
                 .build();
         return parseHeader(json, idx, index);
     }
@@ -442,7 +447,10 @@ public class WebCrawlerUtils {
         return index;
     }
 
-    public static void main(String[] args) {
-        realTask("/");
+    public static boolean isClose(String timestamp, Instant now) {
+        Instant instant = Instant.ofEpochSecond(Long.parseLong(timestamp));
+        // 计算时间差
+        Duration duration = Duration.between(instant, now);
+        return Math.abs(duration.toMinutes()) <= 1;
     }
 }

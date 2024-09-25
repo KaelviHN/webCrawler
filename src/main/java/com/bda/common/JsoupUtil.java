@@ -10,13 +10,13 @@ import org.jsoup.select.Elements;
  * @description:
  **/
 public class JsoupUtil {
-    public static String getFirstElementByClass(String tag, Document document) {
-        Element element = document.getElementsByClass(tag).first();
-        return element == null ? "" : element.text();
+    public static String getFirstElementByClass(Element e, String cls, String attr) {
+        Element element = e.getElementsByClass(cls).first();
+        return element == null ? null : attr == null ? element.text() : element.attr(attr);
     }
 
-    public static String selectFirst(String property, Document document) {
-        Element element = document.selectFirst(property);
-        return element == null ? "" : element.text();
+    public static String selectFirst(Element e, String property, String attr) {
+        Element element = e.selectFirst(property);
+        return element == null ? null : attr == null ? element.text() : element.attr(attr);
     }
 }

@@ -25,6 +25,7 @@ public class PostNews {
     private String url;
     private String time;
     private String content;
+    private String imgUrl;
     private String like;
     private String views;
 

@@ -73,16 +73,29 @@ public class FileUtil {
         // 检查文件是否存在
         if (Files.exists(Paths.get(filePath))) {
             // 如果文件存在，读取已有内容，并转换为 List<Index>
-            jsonList = objectMapper.readValue(new File(filePath), new TypeReference<List<Index>>() {});
+            jsonList = objectMapper.readValue(new File(filePath), new TypeReference<List<Index>>() {
+            });
         } else {
             // 如果文件不存在，初始化为空数组
             jsonList = new ArrayList<>();
         }
-
+        Index idx = jsonList.isEmpty() ? null : jsonList.get(jsonList.size() - 1);
         // 将新数据追加到数组
-        jsonList.add(index);
+        if (idx == null || !idx.getTimestamp().equals(index.getTimestamp())) jsonList.add(index);
 
         // 将更新后的数组写回文件，使用 distinct 去重
         objectMapper.writeValue(new File(filePath), jsonList.stream().distinct().collect(Collectors.toList()));
+    }
+
+
+    @SneakyThrows
+    public static <T> void write(String path, List<T> indices) {
+        String content = new ObjectMapper().writeValueAsString(indices);
+        try (FileWriter fileWriter = new FileWriter(path, false)) {
+            fileWriter.write(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("成功写入:" + path);
     }
 }

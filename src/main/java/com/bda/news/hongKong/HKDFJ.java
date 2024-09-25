@@ -1,6 +1,7 @@
 package com.bda.news.hongKong;
 
 import com.bda.common.RequestUtil;
+import com.google.common.collect.Maps;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -31,7 +32,7 @@ public class HKDFJ {
         int year = Calendar.getInstance().get(Calendar.YEAR) - 1;
         while (year >= 2012) {
             String url = "https://www.doj.gov.hk/tc/archive/notable_criminal_" + year + ".html";
-            Document searchList = Jsoup.parse(RequestUtil.proxyGet(url, proxyHost, proxyPort));
+            Document searchList = Jsoup.parse(RequestUtil.proxyGet(url, proxyHost, proxyPort, Maps.newHashMap()));
             Elements elements;
             try {
                 elements = searchList.getElementsByClass("tblRow");
@@ -46,10 +47,10 @@ public class HKDFJ {
                 Document content = null;
                 Document header = null;
                 try {
-                    content = Jsoup.parse(RequestUtil.proxyGet(infoUrl, proxyHost, proxyPort));
+                    content = Jsoup.parse(RequestUtil.proxyGet(infoUrl, proxyHost, proxyPort, Maps.newHashMap()));
                     Element top = content.selectFirst("frame[name=topFrame]");
                     if (top == null) continue;
-                    header = Jsoup.parse(RequestUtil.proxyGet("https://legalref.judiciary.hk/lrs/common/search/" + top.attr("src"), proxyHost, proxyPort));
+                    header = Jsoup.parse(RequestUtil.proxyGet("https://legalref.judiciary.hk/lrs/common/search/" + top.attr("src"), proxyHost, proxyPort, Maps.newHashMap()));
                 } catch (IOException e) {
                     continue;
                 }

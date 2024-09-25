@@ -95,17 +95,18 @@ public class RequestUtil {
         return response.toString();
     }
 
-    public static String proxyGet(String url, String proxyHost, int proxyPort) throws IOException {
+    public static String proxyGet(String url, String proxyHost, int proxyPort,Map<String,Object> header) throws IOException {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
         // 创建 OkHttpClient 并设置代理
         OkHttpClient client = new OkHttpClient.Builder()
                 .proxy(proxy)
                 .build();
-        // 发送请求
-        Request request = new Request.Builder()
+        Request.Builder builder = new Request.Builder()
                 .url(url)
-                .header("User-Agent", "Mozilla/5.0")
-                .build();
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36");
+        // 发送请求
+        header.forEach((k,v)->builder.header(k, String.valueOf(v)));
+        Request request = builder.build();
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
