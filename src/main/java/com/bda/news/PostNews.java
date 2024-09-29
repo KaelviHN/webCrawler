@@ -20,6 +20,8 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostNews {
+    public static final String EN_LANGUAGE = "EN";
+    public static final String CN_LANGUAGE = "CN";
     private String title;
     private String author;
     private String url;
@@ -28,9 +30,10 @@ public class PostNews {
     private String imgUrl;
     private String like;
     private String views;
+    private String language;
 
     public static String patternTime(String timestamp) {
         ZonedDateTime dateTime = Instant.ofEpochMilli(Long.parseLong(timestamp)).atZone(ZoneId.systemDefault());
-        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

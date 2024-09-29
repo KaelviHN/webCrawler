@@ -1,18 +1,19 @@
 package com.bda.news.chineseMainland;
 
-import com.bda.common.FileUtil;
+import com.bda.common.*;
 import com.bda.news.PostNews;
-import com.bda.common.JsonNodeUtil;
-import com.bda.common.RequestUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.SneakyThrows;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -23,6 +24,8 @@ import java.util.*;
 public class Tencent {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
+    private final static String pattern = "yyyy-MM-dd HH:mm:ss";
+    private static final Logger log = LogManager.getLogger(Tencent.class);
 
     @SneakyThrows
     public static List<PostNews> crawNews(String keyWord) {
@@ -71,15 +74,22 @@ public class Tencent {
                 JsonNode news = newsIt.next();
                 String title = JsonNodeUtil.parseElement(news, String.class, "title");
                 String time = JsonNodeUtil.parseElement(news, String.class, "time");
+                LocalDate localDate = TimeUtil.parseDate(time, pattern);
+                if (localDate != null) time = TimeUtil.parseTimeToCommonFormat(localDate);
                 String url = JsonNodeUtil.parseElement(news, String.class, "url");
                 String author = JsonNodeUtil.parseElement(news, String.class, "card", "chlname");
                 String shareUrl = JsonNodeUtil.parseElement(news, String.class, "shareUrl");
+                JsonNode imgArray = JsonNodeUtil.parseArray(news, "bigImage");
+                String imgUrl = null;
+                if (imgArray!=null && !imgArray.isEmpty()) imgUrl = imgArray.get(0).textValue();
                 String content = parseNewsContent(shareUrl);
                 PostNews postNews = PostNews.builder()
                         .title(title).time(time)
                         .author(author).url(url)
-                        .content(content)
+                        .content(content).imgUrl(imgUrl)
+                        .language(PostNews.CN_LANGUAGE)
                         .build();
+                log.info(postNews);
                 postNewsList.add(postNews);
                 Thread.sleep(5000);
             }
@@ -117,11 +127,16 @@ public class Tencent {
     }
 
 
-    public static void main(String[] args) {
-        List<PostNews> postNewsList = crawNews("澳门");
-        postNewsList.addAll(crawNews("香港"));
-        FileUtil.writeHistory("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\Tencent", postNewsList, "Tencent.json");
+    public static List<PostNews> crawNewsByList(List<String> keyWords) {
+        List<PostNews> postNewsList = Lists.newArrayList();
+        keyWords.forEach(keyWord -> postNewsList.addAll(crawNews(keyWord)));
+        return postNewsList;
     }
 
+    public static void main(String[] args) {
+        List<String> keyWords = Lists.newArrayList("香港庆祝国庆节", "香港与大湾区发展", "香港人才引进与培养", "澳门回归25周年", "香港", "澳门");
+        List<PostNews> postNews = crawNewsByList(keyWords);
+        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\source\\" + Tencent.class.getSimpleName() + ".json", postNews);
+    }
 
 }

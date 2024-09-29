@@ -10,8 +10,8 @@ import org.jsoup.select.Elements;
  * @description:
  **/
 public class JsoupUtil {
-    public static String getFirstElementByClass(Element e, String cls, String attr) {
-        Element element = e.getElementsByClass(cls).first();
+    public static String getFirstElementByClass(Element e, String name, String attr) {
+        Element element = e.getElementsByClass(name).first();
         return element == null ? null : attr == null ? element.text() : element.attr(attr);
     }
 

@@ -13,10 +13,10 @@ import java.time.format.DateTimeParseException;
  **/
 public class TimeUtil {
     public static LocalDate parseDate(String dateStr,String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
             return LocalDate.parse(dateStr, formatter);
-        } catch (DateTimeParseException e) {
+        } catch (Exception e) {
             // 解析失败，返回 null 或处理错误
            return null;
         }
@@ -25,5 +25,14 @@ public class TimeUtil {
     public static <T extends ChronoLocalDate> String parseTimeToCommonFormat(T date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return date.format(formatter);
+    }
+
+    public static LocalDate parseDate(String dateStr,DateTimeFormatter dateTimeFormatter){
+        try {
+            return LocalDate.parse(dateStr, dateTimeFormatter);
+        } catch (Exception e) {
+            // 解析失败，返回 null 或处理错误
+            return null;
+        }
     }
 }

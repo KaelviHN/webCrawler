@@ -1,14 +1,15 @@
 package com.bda.common;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.AbstractMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -40,7 +41,7 @@ public class RequestUtil {
      * @return
      */
     @SneakyThrows
-    public static String commonPost(String url, Map<String, Object> params,Map<String,Object> header) {
+    public static String commonPost(String url, Map<String, Object> params, Map<String, Object> header) {
         // 获取连接
         URL urlObject = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
@@ -95,7 +96,7 @@ public class RequestUtil {
         return response.toString();
     }
 
-    public static String proxyGet(String url, String proxyHost, int proxyPort,Map<String,Object> header) throws IOException {
+    public static String proxyGet(String url, String proxyHost, int proxyPort, Map<String, Object> header) throws IOException {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
         // 创建 OkHttpClient 并设置代理
         OkHttpClient client = new OkHttpClient.Builder()
@@ -105,9 +106,64 @@ public class RequestUtil {
                 .url(url)
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36");
         // 发送请求
-        header.forEach((k,v)->builder.header(k, String.valueOf(v)));
+        header.forEach((k, v) -> builder.header(k, String.valueOf(v)));
         Request request = builder.build();
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
+
+    public static String proxyPostFrom(String url, String proxyHost, int proxyPort, Map<String, Object> params, Map<String, Object> header) throws IOException {
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
+        OkHttpClient client = new OkHttpClient.Builder()
+                .proxy(proxy)
+                .build();
+
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        params.forEach((k, v) -> formBuilder.add(k, String.valueOf(v)));
+
+        RequestBody requestBody = formBuilder.build();
+
+        Request.Builder builder = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36");
+
+        header.forEach((k, v) -> builder.header(k, String.valueOf(v)));
+        Request request = builder.build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    public static String proxyPostJson(String url, String proxyHost, int proxyPort, Map<String, Object> params, Map<String, Object> header) throws IOException {
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
+        OkHttpClient client = new OkHttpClient.Builder()
+                .proxy(proxy)
+                .build();
+
+        // 将 params 转换为 JSON 字符串
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonParams = mapper.writeValueAsString(params);
+
+        // 创建 JSON 请求体
+        RequestBody requestBody = RequestBody.create(jsonParams, MediaType.get("application/json; charset=utf-8"));
+
+        Request.Builder builder = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36");
+
+        // 设置请求头
+        header.forEach((k, v) -> builder.header(k, String.valueOf(v)));
+
+        // 在这里可以确保 Content-Type 也被正确设置
+        builder.header("Content-Type", "application/json");
+
+        Request request = builder.build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+
+
+
 }

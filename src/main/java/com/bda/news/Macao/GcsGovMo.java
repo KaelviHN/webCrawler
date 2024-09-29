@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * @author: anran.ma
  * @created: 2024/9/25
- * @description:
+ * @description: 澳门特别行政区新闻局
  **/
 public class GcsGovMo {
     private static final Log log = LogFactory.getLog(GcsGovMo.class);
@@ -110,6 +110,7 @@ public class GcsGovMo {
                         .url(href).imgUrl(imgUrl)
                         .title(title).author(author)
                         .time(time).content(content)
+                        .language(PostNews.CN_LANGUAGE)
                         .build();
                 log.info(postNews);
                 postNewsList.add(postNews);
@@ -125,6 +126,6 @@ public class GcsGovMo {
 
     public static void main(String[] args) throws IOException {
         List<PostNews> postNews = crawNews("127.0.0.1", 7890);
-        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\GcsGovMo\\GcsGovMo.json", postNews);
+        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\source\\GcsGovMo.json", postNews);
     }
 }

@@ -1,12 +1,14 @@
 package com.bda.news.chineseMainland;
 
 import com.bda.common.FileUtil;
+import com.bda.common.TimeUtil;
 import com.bda.news.PostNews;
 import com.bda.common.RequestUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,6 +16,8 @@ import org.jsoup.select.Elements;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -26,8 +30,11 @@ import java.util.stream.Collectors;
  * @description:
  **/
 public class NTES {
+    private final static String pattern = "yyyy-MM-dd HH:mm:ss";
+
     @SneakyThrows
     public static List<PostNews> crawNews(String keyWord) {
+        LocalDate range = LocalDate.now().minusMonths(3);
         List<PostNews> res = Lists.newArrayList();
         HashMap<String, Object> header = Maps.newHashMap();
         header.put("cookie", "_ntes_nuid=38b3557a1fb96bb660641d0c4d7d2ccd;" +
@@ -46,11 +53,14 @@ public class NTES {
         Matcher matcher = Pattern.compile("(\\d+)").matcher(document.getElementsByClass("keyword_title").get(0).text());
         Integer total = Integer.valueOf(matcher.find() ? matcher.group(1) : "0");
         Elements newsList = document.getElementsByClass("keyword_new keyword_new_none ");
-        newsList.addAll(document.getElementsByClass("keyword_img"));
+        newsList.addAll(document.getElementsByClass("keyword_new keyword_new_simple "));
         for (Element element : newsList) {
             Element link = element.select("a").first();
             if (link == null) continue;
             String url = link.attr("href");
+            Element imgE = element.selectFirst("img");
+            String imgUrl = null;
+            if (imgE != null) imgUrl = imgE.attr("src");
             String title = link.text();
             Element authorTag = element.getElementsByClass("keyword_source").first();
             String author = authorTag != null ? authorTag.text() : "";
@@ -59,6 +69,10 @@ public class NTES {
             String postBody = content.getElementsByClass("post_body").text();
             String post_info = content.getElementsByClass("post_info").text();
             String time = post_info.split("来源")[0].trim();
+            if (StringUtils.isNotBlank(time)) time = time.substring(0,time.length()-1);
+            LocalDate localDate = TimeUtil.parseDate(time, pattern);
+            if (localDate != null && localDate.isBefore(range)) break;
+            if (localDate != null) time = TimeUtil.parseTimeToCommonFormat(localDate);
             if (StringUtils.isBlank(title)) {
                 title = content.title();
             }
@@ -66,25 +80,26 @@ public class NTES {
                 author = content.getElementsByClass("post_wemedia_name").first() != null ?
                         content.getElementsByClass("post_wemedia_name").first().text() : "";
             }
-            if (StringUtils.isBlank(time)){
-                time = content.getElementById("ne_wrap")!=null?content.getElementById("ne_wrap").attr("data-publishtime"):"";
+            if (StringUtils.isBlank(time)) {
+                time = content.getElementById("ne_wrap") != null ? content.getElementById("ne_wrap").attr("data-publishtime") : "";
             }
-            if (StringUtils.isBlank(time)){
-                time = content.selectFirst("meta[property=article:published_time]") !=null ?
-                        content.selectFirst("meta[property=article:published_time]").text():"";
+            if (StringUtils.isBlank(time)) {
+                time = content.selectFirst("meta[property=article:published_time]") != null ?
+                        content.selectFirst("meta[property=article:published_time]").text() : "";
             }
-            if (StringUtils.isBlank(time)){
-                time = content.getElementsByClass("ptime").first() !=null ?
-                        content.getElementsByClass("ptime").first().text():"";
+            if (StringUtils.isBlank(time)) {
+                time = content.getElementsByClass("ptime").first() != null ?
+                        content.getElementsByClass("ptime").first().text() : "";
             }
-            if (StringUtils.isBlank(author)){
-                author = content.selectFirst("a[class=author]") !=null ?
-                        content.selectFirst("a[class=author]").text():"";
+            if (StringUtils.isBlank(author)) {
+                author = content.selectFirst("a[class=author]") != null ?
+                        content.selectFirst("a[class=author]").text() : "";
             }
             PostNews postNews = PostNews.builder()
                     .title(title).url(url)
                     .author(author).time(time)
-                    .content(postBody)
+                    .content(postBody).imgUrl(imgUrl)
+                    .language(PostNews.CN_LANGUAGE)
                     .build();
             res.add(postNews);
             Thread.sleep(50);
@@ -92,9 +107,15 @@ public class NTES {
         return res.stream().distinct().collect(Collectors.toList());
     }
 
+    public static List<PostNews> crawNewsByList(List<String> keyWords) {
+        List<PostNews> postNewsList = Lists.newArrayList();
+        keyWords.forEach(keyWord -> postNewsList.addAll(crawNews(keyWord)));
+        return postNewsList;
+    }
+
     public static void main(String[] args) {
-        List<PostNews> postNewsList = crawNews("澳门");
-        postNewsList.addAll(crawNews("香港"));
-        FileUtil.writeHistory("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\NTES", postNewsList, "NTES.json");
+        List<String> keyWords = Lists.newArrayList("香港庆祝国庆节", "香港与大湾区发展", "香港人才引进与培养", "澳门回归25周年", "香港", "澳门");
+        List<PostNews> postNews = crawNewsByList(keyWords);
+        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\source\\" + NTES.class.getSimpleName() + ".json", postNews);
     }
 }

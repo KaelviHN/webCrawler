@@ -62,12 +62,11 @@ public class Exmoo {
                 String time = JsoupUtil.getFirstElementByClass(news, "article-pub-date", null);
                 if (StringUtils.isBlank(time)) continue;
                 LocalDate localDate = TimeUtil.parseDate(time, timeFormat);
-                if (localDate == null) continue;
-                time = TimeUtil.parseTimeToCommonFormat(localDate);
-                if (now.isAfter(localDate)) {
+                if (localDate!=null && now.isAfter(localDate)) {
                     inThreeMonth = false;
                     break;
                 }
+                if (localDate!=null)  time = TimeUtil.parseTimeToCommonFormat(localDate);
                 StringBuilder content = new StringBuilder();
                 Elements elements = news.getElementsByClass("article-content-p");
                 elements.forEach(word -> content.append(word.text()));
@@ -75,6 +74,7 @@ public class Exmoo {
                         .author("澳门力报").time(time)
                         .title(title).imgUrl(imgUrl)
                         .content(content.toString()).url(href)
+                        .language(PostNews.CN_LANGUAGE)
                         .build();
                 postNewsList.add(postNews);
                 log.info(postNews);
@@ -92,7 +92,7 @@ public class Exmoo {
 
     public static void main(String[] args) {
         List<PostNews> postNews = crawNews("127.0.0.1", 7890);
-        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\Exmoo\\Exmoo.json",
+        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\source\\Exmoo.json",
                 postNews);
     }
 }
