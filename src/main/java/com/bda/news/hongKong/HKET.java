@@ -43,7 +43,7 @@ public class HKET {
         List<PostNews> postNewsList = Lists.newArrayList();
         boolean isNotEnd = true;
         int p = 1;
-        while (isNotEnd) {
+        while (isNotEnd && p <= 20) {
             String url = "https://inews.hket.com/sran001/%E5%85%A8%E9%83%A8" + (p > 1 ? "?p=" + p : "");
             log.info(url);
             Document search;
@@ -57,7 +57,8 @@ public class HKET {
                 String href = element.attr("href");
                 PostNews postNews = crawNewsDetail(href, range, host, port);
                 // 获取不到数据
-                if (postNews == null || StringUtils.isBlank(postNews.getAuthor()) || StringUtils.isBlank(postNews.getContent())) continue;
+                if (postNews == null || StringUtils.isBlank(postNews.getAuthor()) || StringUtils.isBlank(postNews.getContent()))
+                    continue;
                 // 超过三月
                 if (StringUtils.isNotBlank(postNews.getTime()) && "-1".equals(postNews.getTime())) {
                     isNotEnd = false;
@@ -105,14 +106,15 @@ public class HKET {
                 authors.forEach(item -> author.append(item.textValue() == null ? JsonNodeUtil.parseElement(item, String.class, "name") : item.textValue()).append(","));
             if (StringUtils.isBlank(author.toString())) {
                 JsonNode writers = JsonNodeUtil.parseArray(tree, "writers");
-                if (writers!=null) writers.forEach(item -> author.append(item.textValue() == null ? JsonNodeUtil.parseElement(item, String.class, "name") : item.textValue()).append(","));
+                if (writers != null)
+                    writers.forEach(item -> author.append(item.textValue() == null ? JsonNodeUtil.parseElement(item, String.class, "name") : item.textValue()).append(","));
             }
             if (author.length() > 0) {
                 author.delete(author.length() - 1, author.length());
             }
             String contentHtml = JsonNodeUtil.parseElement(tree, String.class, "content", "partial");
-            if (contentHtml==null)contentHtml = JsonNodeUtil.parseElement(tree, String.class, "content", "full");
-            if (contentHtml==null)contentHtml = JsonNodeUtil.parseElement(tree, String.class, "content", "lead");
+            if (contentHtml == null) contentHtml = JsonNodeUtil.parseElement(tree, String.class, "content", "full");
+            if (contentHtml == null) contentHtml = JsonNodeUtil.parseElement(tree, String.class, "content", "lead");
             String content = null;
             String imgUrl = null;
             if (StringUtils.isNotBlank(contentHtml)) {
@@ -122,7 +124,7 @@ public class HKET {
                 imgUrl = first.orElse("");
                 content = document.text();
             }
-            if (StringUtils.isNotBlank(contentHtml) &&StringUtils.isBlank(imgUrl)) {
+            if (StringUtils.isNotBlank(contentHtml) && StringUtils.isBlank(imgUrl)) {
                 String regex = "src=\"([^\"]+\\.(jpg|jpeg|png|gif|bmp|svg|webp))\"";
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(contentHtml);
