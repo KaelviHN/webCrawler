@@ -26,11 +26,25 @@ public class PlayWeightUtil {
         return sb.toString();
     }
 
-    public static String parseE(Page page, String id, String attribute) {
-        // 选择包含链接的元素
-        Locator link = page.locator(id);
-        return link != null ? link.getAttribute(attribute) : "";
+    public static void toEnd(Page page){
+        int previousHeight = 0;
+        while (true) {
+            // 获取当前文档的高度
+            page.evaluate("document.body.scrollHeight");
+            int currentHeight;
+
+            // 向下滚动
+            page.mouse().wheel(0, 1000);
+            page.waitForTimeout(2000); // 等待加载数据
+
+            // 获取新的高度
+            currentHeight = (int)page.evaluate("document.body.scrollHeight");
+
+            // 如果高度没有变化，则停止滚动
+            if (currentHeight == previousHeight) {
+                break;
+            }
+            previousHeight = currentHeight;
+        }
     }
-
-
 }

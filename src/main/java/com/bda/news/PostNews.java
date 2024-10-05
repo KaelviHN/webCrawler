@@ -28,8 +28,6 @@ public class PostNews {
     private String time;
     private String content;
     private String imgUrl;
-    private String like;
-    private String views;
     private String language;
 
     public static String patternTime(String timestamp) {

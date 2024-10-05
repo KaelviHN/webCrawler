@@ -1,0 +1,556 @@
+{
+  "result": true,
+  "data": {
+    "quoted": [
+      {
+        "index": 149,
+        "id": 291499946
+      }
+    ],
+    "authorBadge": null,
+    "currentPage": 1,
+    "content": "已修正／更新項目：<br />1) 修正「通知」功能 （因第三方服務使用方法變動，導致之前通知功能失效）<br /><br />2）增加每日圖片上傳量 （最新圖片上傳數目如下）<br />    初級會員: 每日10幅<br />    普通會員: 每日30幅<br />    高級會員: 每日50幅<br />   <br />3) 更新帳號驗證服務<br />為確定帳號安全，討論區將更新JWT憑證密碼以提高帳戶安全性，我們將<br /><span data-size=\"x-large\"><span data-color=\"red\">強制於2024-10-02 要求所有會員重新登入</span></span>，<br /><br /><span data-color=\"red\"><span data-size=\"x-large\">如果已經不能使用登記時的電郵，或<br />已經忘記密碼</span></span><br /><br />需要重新設定密碼／加入備用電郵，<br />請立即到「我的賬戶」＞「個人資料」辦理<br /><br />如在重設密碼／備用電郵中遇上問題，歡迎以DM形式接觸高登管理員吳中立／或電郵至info@hkgolden.com查詢。<br /><br />黎緊我哋會繼續修正／更新高登討論區服務，<br />希望為各位巴斯打帶來更順暢的使用體驗。<br />以後再有任何更新，我哋會繼續通知大家。<br /><img data-icons=\"#bye#\" src=\"/faces/bye.gif\" alt=\"#bye#\" /> <img data-icons=\"#bye#\" src=\"/faces/bye.gif\" alt=\"#bye#\" />",
+    "tags": [],
+    "rated": 0,
+    "isVote": false,
+    "replies": [
+      {
+        "id": 291498124,
+        "messageId": 7860929,
+        "index": 1,
+        "quoted": [
+          {
+            "index": 160,
+            "id": 291500320
+          },
+          {
+            "index": 207,
+            "id": 291502417
+          }
+        ],
+        "authorId": 417636,
+        "authorName": "歪素思域",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 283,
+        "authorBadge": null,
+        "replyDate": 1727102152403,
+        "isBlocked": false,
+        "status": "A",
+        "content": "啲圖每張限幾MB先<img data-icons=\":o)\" src=\"/faces/clown.gif\" alt=\":o)\" />"
+      },
+      {
+        "id": 291498133,
+        "messageId": 7860929,
+        "index": 2,
+        "quoted": [],
+        "authorId": 150611,
+        "authorName": "漢武帝劉徹",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 131,
+        "authorBadge": null,
+        "replyDate": 1727102197090,
+        "isBlocked": false,
+        "status": "A",
+        "content": "<img data-icons=\":)4fj\" src=\"/faces/swingsword/smile4.gif\" alt=\":)4fj\" />"
+      },
+      {
+        "id": 291498134,
+        "messageId": 7860929,
+        "index": 3,
+        "quoted": [],
+        "authorId": 232823,
+        "authorName": "我有兩碌鳩",
+        "authorGender": 0,
+        "authorClass": 4,
+        "authorIcon": 74,
+        "authorBadge": null,
+        "replyDate": 1727102207063,
+        "isBlocked": false,
+        "status": "A",
+        "content": "又搞乜7"
+      },
+      {
+        "id": 291498135,
+        "messageId": 7860929,
+        "index": 4,
+        "quoted": [],
+        "authorId": 254318,
+        "authorName": "習大🧸",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 315,
+        "authorBadge": null,
+        "replyDate": 1727102223243,
+        "isBlocked": false,
+        "status": "A",
+        "content": "<img data-icons=\"O:-)lm\" src=\"/faces/lomore/angel.gif\" alt=\"O:-)lm\" />"
+      },
+      {
+        "id": 291498138,
+        "messageId": 7860929,
+        "index": 5,
+        "quoted": [
+          {
+            "index": 73,
+            "id": 291498655
+          },
+          {
+            "index": 84,
+            "id": 291498754
+          },
+          {
+            "index": 93,
+            "id": 291498819
+          },
+          {
+            "index": 396,
+            "id": 291531110
+          },
+          {
+            "index": 399,
+            "id": 291531921
+          }
+        ],
+        "authorId": 232823,
+        "authorName": "我有兩碌鳩",
+        "authorGender": 0,
+        "authorClass": 4,
+        "authorIcon": 74,
+        "authorBadge": null,
+        "replyDate": 1727102231050,
+        "isBlocked": false,
+        "status": "A",
+        "content": "我唔記得密碼"
+      },
+      {
+        "id": 291498143,
+        "messageId": 7860929,
+        "index": 6,
+        "quoted": [],
+        "authorId": 362803,
+        "authorName": "咖哩海鮮味",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 129,
+        "authorBadge": null,
+        "replyDate": 1727102263310,
+        "isBlocked": false,
+        "status": "A",
+        "content": "<img data-icons=\"O:-)lm\" src=\"/faces/lomore/angel.gif\" alt=\"O:-)lm\" />"
+      },
+      {
+        "id": 291498146,
+        "messageId": 7860929,
+        "index": 7,
+        "quoted": [],
+        "authorId": 280770,
+        "authorName": "MILET(已切)",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 85,
+        "authorBadge": null,
+        "replyDate": 1727102314970,
+        "isBlocked": false,
+        "status": "A",
+        "content": "<img data-icons=\":o)4lm\" src=\"/faces/lomore/clown4.gif\" alt=\":o)4lm\" />"
+      },
+      {
+        "id": 291498147,
+        "messageId": 7860929,
+        "index": 8,
+        "quoted": [],
+        "authorId": 134662,
+        "authorName": "碌蕉唔夠硬",
+        "authorGender": 0,
+        "authorClass": 4,
+        "authorIcon": 62,
+        "authorBadge": null,
+        "replyDate": 1727102316153,
+        "isBlocked": false,
+        "status": "A",
+        "content": "我果頁個人資料係邊<img data-icons=\"#oh#\" src=\"/faces/surprise.gif\" alt=\"#oh#\" />"
+      },
+      {
+        "id": 291498156,
+        "messageId": 7860929,
+        "index": 9,
+        "quoted": [],
+        "authorId": 404232,
+        "authorName": "南島(🧙‍)",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 85,
+        "authorBadge": null,
+        "replyDate": 1727102360730,
+        "isBlocked": false,
+        "status": "A",
+        "content": "<img data-icons=\"#ng#\" src=\"/faces/donno.gif\" alt=\"#ng#\" />"
+      },
+      {
+        "id": 291498158,
+        "messageId": 7860929,
+        "index": 10,
+        "quoted": [],
+        "authorId": 440967,
+        "authorName": "魚蛋妹2.0",
+        "authorGender": 0,
+        "authorClass": 4,
+        "authorIcon": 124,
+        "authorBadge": null,
+        "replyDate": 1727102364093,
+        "isBlocked": false,
+        "status": "A",
+        "content": "屌那星我唔記得左PW啦"
+      },
+      {
+        "id": 291498170,
+        "messageId": 7860929,
+        "index": 11,
+        "quoted": [
+          {
+            "index": 12,
+            "id": 291498177
+          },
+          {
+            "index": 31,
+            "id": 291498407
+          }
+        ],
+        "authorId": 383591,
+        "authorName": "d/dx",
+        "authorGender": 0,
+        "authorClass": 4,
+        "authorIcon": 22,
+        "authorBadge": null,
+        "replyDate": 1727102456080,
+        "isBlocked": false,
+        "status": "A",
+        "content": "<span data-color=\"red\"><span data-size=\"xx-large\">Front Page 九月頭會再Update</span></span><img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <br /><a href=\"https://forum.hkgolden.com/thread/7725451/page/1\" target=\"_blank\">https://forum.hkgolden.com/thread/7725451/page/1</a><br /><br />幾時找數"
+      },
+      {
+        "id": 291498177,
+        "messageId": 7860929,
+        "index": 12,
+        "quoted": [],
+        "authorId": 417636,
+        "authorName": "歪素思域",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 283,
+        "authorBadge": null,
+        "replyDate": 1727102522133,
+        "isBlocked": false,
+        "status": "A",
+        "content": "<blockquote><span data-color=\"red\"><span data-size=\"xx-large\">Front Page 九月頭會再Update</span></span><img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <img data-icons=\"[???]al\" src=\"/faces/alpaca/wonder2.gif\" alt=\"[???]al\" /> <br /><a href=\"https://forum.hkgolden.com/thread/7725451/page/1\" target=\"_blank\">https://forum.hkgolden.com/thread/7725451/page/1</a><br /><br />幾時找數</blockquote><br />真係九月<img data-icons=\"[shocking]\" src=\"/faces/shocking.gif\" alt=\"[shocking]\" /> <br />不過一年後"
+      },
+      {
+        "id": 291498233,
+        "messageId": 7860929,
+        "index": 13,
+        "quoted": [],
+        "authorId": 280770,
+        "authorName": "MILET(已切)",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 85,
+        "authorBadge": null,
+        "replyDate": 1727102955057,
+        "isBlocked": false,
+        "status": "A",
+        "content": "BTW 原來ADMIN 都會被人BLOCK<img data-icons=\"#ng#\" src=\"/faces/donno.gif\" alt=\"#ng#\" /> <img data-icons=\"[sosad]\" src=\"/faces/sosad.gif\" alt=\"[sosad]\" />"
+      },
+      {
+        "id": 291498245,
+        "messageId": 7860929,
+        "index": 14,
+        "quoted": [
+          {
+            "index": 168,
+            "id": 291500770
+          },
+          {
+            "index": 169,
+            "id": 291500803
+          },
+          {
+            "index": 170,
+            "id": 291500826
+          },
+          {
+            "index": 196,
+            "id": 291501893
+          }
+        ],
+        "authorId": 681208,
+        "authorName": "水沝淼敪",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 116,
+        "authorBadge": null,
+        "replyDate": 1727103056210,
+        "isBlocked": false,
+        "status": "A",
+        "content": "高級會員再上。係乜會員?///"
+      },
+      {
+        "id": 291498246,
+        "messageId": 7860929,
+        "index": 15,
+        "quoted": [],
+        "authorId": 610103,
+        "authorName": "居理夫人",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 101,
+        "authorBadge": null,
+        "replyDate": 1727103066033,
+        "isBlocked": false,
+        "status": "A",
+        "content": "我已經被強制登出咗一次<img data-icons=\":o)\" src=\"/faces/clown.gif\" alt=\":o)\" />"
+      },
+      {
+        "id": 291498248,
+        "messageId": 7860929,
+        "index": 16,
+        "quoted": [],
+        "authorId": 353097,
+        "authorName": "大雄殿小智將",
+        "authorGender": 0,
+        "authorClass": 4,
+        "authorIcon": 176,
+        "authorBadge": null,
+        "replyDate": 1727103073213,
+        "isBlocked": false,
+        "status": "A",
+        "content": "個app會唔會再有更新<img data-icons=\"[sosad]\" src=\"/faces/sosad.gif\" alt=\"[sosad]\" />"
+      },
+      {
+        "id": 291498249,
+        "messageId": 7860929,
+        "index": 17,
+        "quoted": [],
+        "authorId": 604585,
+        "authorName": "河北採家嫂",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 363,
+        "authorBadge": null,
+        "replyDate": 1727103082177,
+        "isBlocked": false,
+        "status": "A",
+        "content": "動態島問題呢？"
+      },
+      {
+        "id": 291498254,
+        "messageId": 7860929,
+        "index": 18,
+        "quoted": [],
+        "authorId": 610103,
+        "authorName": "居理夫人",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 101,
+        "authorBadge": null,
+        "replyDate": 1727103164627,
+        "isBlocked": false,
+        "status": "A",
+        "content": "我借助GPT嘅力量，整咗個Android app，去解決YT short嘅問題<br /><br />你哋有冇興趣試？<br /><div data-align=\"right\"><blockquote><strong>yt-hkg Demo Video (反YT_short、反追蹤)</strong><br /><span data-size=\"x-small\">{ 3 Minutes 7 Seconds }</span> @<ins>居理夫人</ins> // <em>23-Sep,2024</em><br /><blockquote><a href=\"https://youtu.be/hV2COSF2xE0\" target=\"_blank\">https://youtu.be/hV2COSF2xE0</a></blockquote></blockquote></div><br /><br />Source Code: <a href=\"https://github.com/Ramen-LadyHKG/yt-hkg/releases\" target=\"_blank\">https://github.com/Ramen-LadyHKG/yt-hkg/releases</a><br />(未整README.md說明，求其upload咗先）"
+      },
+      {
+        "id": 291498258,
+        "messageId": 7860929,
+        "index": 19,
+        "quoted": [],
+        "authorId": 618371,
+        "authorName": "您慢点儿",
+        "authorGender": 0,
+        "authorClass": 4,
+        "authorIcon": 133,
+        "authorBadge": null,
+        "replyDate": 1727103186927,
+        "isBlocked": false,
+        "status": "A",
+        "content": "10月1係國慶"
+      },
+      {
+        "id": 291498259,
+        "messageId": 7860929,
+        "index": 20,
+        "quoted": [],
+        "authorId": 610103,
+        "authorName": "居理夫人",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 101,
+        "authorBadge": null,
+        "replyDate": 1727103191783,
+        "isBlocked": false,
+        "status": "A",
+        "content": "<blockquote>我借助GPT嘅力量，整咗個Android app<br /><br />你哋有冇興趣試？<br /><div data-align=\"right\"><blockquote><strong>yt-hkg Demo Video (反YT_short、反追蹤)</strong><br /><span data-size=\"x-small\">{ 3 Minutes 7 Seconds }</span> @<ins>居理夫人</ins> // <em>23-Sep,2024</em><br /><blockquote><a href=\"https://youtu.be/hV2COSF2xE0\" target=\"_blank\">https://youtu.be/hV2COSF2xE0</a></blockquote></blockquote></div><br /><br />Source Code: <a href=\"https://github.com/Ramen-LadyHKG/yt-hkg/releases\" target=\"_blank\">https://github.com/Ramen-LadyHKG/yt-hkg/releases</a><br />(未整README.md說明，求其upload咗先）</blockquote><br /><br />利用剪貼簿或分享功能，YouTube Short嘅URL或包含trace嘅block移除，輸出成一般嘅YouTube URL short (youtu.be/ID)。<br /><br /><blockquote>SDK minimum係28，build target係 （An9 ~ An14)，但我喺VM到試咗Pixel 7 (An15)都可以運行。</blockquote><br /><br /><blockquote>目前，只有Android 9支援所有功能<br /><br />因為Android 10嘅剪貼簿權限限制，喺冇額外嘅權限允許下，唔可以讀取剪貼簿，去解決YT short嘅問題。<br />目前版本，係唔需要任何權限即可執行。<br /><br />如有需要，會更新更多權限嘅版本。</blockquote><br /><br />睇下你哋反應如何，我先再update 剪貼簿個功能去比Android 10以上嘅人用<br />功能已經整咗出嚟，但要3個權限，原本係0權限<br /><br />我個人覺得目前分享功能夠大家用。"
+      },
+      {
+        "id": 291498267,
+        "messageId": 7860929,
+        "index": 21,
+        "quoted": [
+          {
+            "index": 73,
+            "id": 291498655
+          },
+          {
+            "index": 84,
+            "id": 291498754
+          },
+          {
+            "index": 93,
+            "id": 291498819
+          },
+          {
+            "index": 396,
+            "id": 291531110
+          },
+          {
+            "index": 399,
+            "id": 291531921
+          }
+        ],
+        "authorId": 415193,
+        "authorName": "管理員呢",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 9,
+        "authorBadge": null,
+        "replyDate": 1727103268267,
+        "isBlocked": false,
+        "status": "A",
+        "content": "我唔記得密碼"
+      },
+      {
+        "id": 291498286,
+        "messageId": 7860929,
+        "index": 22,
+        "quoted": [],
+        "authorId": 417489,
+        "authorName": "綠帽小子",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 397,
+        "authorBadge": null,
+        "replyDate": 1727103460790,
+        "isBlocked": false,
+        "status": "A",
+        "content": "以為息燈<img data-icons=\":O\" src=\"/faces/oh.gif\" alt=\":O\" />"
+      },
+      {
+        "id": 291498288,
+        "messageId": 7860929,
+        "index": 23,
+        "quoted": [
+          {
+            "index": 111,
+            "id": 291499005
+          },
+          {
+            "index": 187,
+            "id": 291501470
+          },
+          {
+            "index": 188,
+            "id": 291501560
+          },
+          {
+            "index": 192,
+            "id": 291501688
+          },
+          {
+            "index": 337,
+            "id": 291514359
+          }
+        ],
+        "authorId": 219978,
+        "authorName": "Intel4核心",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 246,
+        "authorBadge": null,
+        "replyDate": 1727103468527,
+        "isBlocked": false,
+        "status": "A",
+        "content": "幾時肯搞個APPS<img data-icons=\"[fuck]\" src=\"/faces/diu.gif\" alt=\"[fuck]\" /> <img data-icons=\"[fuck]\" src=\"/faces/diu.gif\" alt=\"[fuck]\" /> <img data-icons=\"[fuck]\" src=\"/faces/diu.gif\" alt=\"[fuck]\" /> <img data-icons=\"[fuck]\" src=\"/faces/diu.gif\" alt=\"[fuck]\" /> <br />我部S24ULTRA 成日想回覆出白畫面 乜都做唔到<img data-icons=\"[fuck]\" src=\"/faces/diu.gif\" alt=\"[fuck]\" /> <img data-icons=\"[fuck]\" src=\"/faces/diu.gif\" alt=\"[fuck]\" /> <img data-icons=\"[fuck]\" src=\"/faces/diu.gif\" alt=\"[fuck]\" />"
+      },
+      {
+        "id": 291498293,
+        "messageId": 7860929,
+        "index": 24,
+        "quoted": [
+          {
+            "index": 26,
+            "id": 291498299
+          },
+          {
+            "index": 47,
+            "id": 291498470
+          }
+        ],
+        "authorId": 417489,
+        "authorName": "綠帽小子",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 397,
+        "authorBadge": null,
+        "replyDate": 1727103525173,
+        "isBlocked": false,
+        "status": "A",
+        "content": "有操肌唔洗搞成咁"
+      },
+      {
+        "id": 291498296,
+        "messageId": 7860929,
+        "index": 25,
+        "quoted": [
+          {
+            "index": 27,
+            "id": 291498315
+          }
+        ],
+        "authorId": 494995,
+        "authorName": "我是躺平控",
+        "authorGender": 1,
+        "authorClass": 4,
+        "authorIcon": 405,
+        "authorBadge": null,
+        "replyDate": 1727103561070,
+        "isBlocked": false,
+        "status": "A",
+        "content": "中立瞓咗嗎 個po仲未揾到人置頂？ <img data-icons=\"#ng#dw\" src=\"/faces/draw/donno.gif\" alt=\"#ng#dw\" />"
+      }
+    ],
+    "thumbnail": null,
+    "authorClass": 9,
+    "authorFrameBorder": null,
+    "authorIcon": 238,
+    "isBlocked": false,
+    "isBookmarked": false,
+    "lastReplies": 0,
+    "lastVisit": 0,
+    "limitMember": 1,
+    "id": 7860929,
+    "forum": "MB",
+    "authorId": 245683,
+    "authorGender": 1,
+    "lastReplyDate": 1727780378110,
+    "messageDate": 1727102047627,
+    "totalReplies": 446,
+    "status": "A",
+    "marksGood": 14,
+    "marksBad": 93,
+    "title": "高登討論區服務09-23 更新通知 (所有會員將需24-10-02重新登入)",
+    "authorName": "輔助轆小次郎",
+    "rating": -79,
+    "iconType": "OldHot",
+    "iconPath": "hotold.gif",
+    "totalPage": 18
+  }
+}

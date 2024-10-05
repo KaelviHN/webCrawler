@@ -31,7 +31,7 @@ public class Sohu {
     private static final Logger log = LogManager.getLogger(Sohu.class);
 
     public static List<PostNews> crawNews(String keyWord) {
-        LocalDate range = LocalDate.now().minusMonths(3);
+        LocalDate range = LocalDate.now().minusDays(3);
         HashMap<String, Object> header = Maps.newHashMap();
         header.put("referer", "https://search.sohu.com/");
         List<PostNews> postNewsList = Lists.newArrayList();
@@ -125,6 +125,6 @@ public class Sohu {
                 "香港庆祝国庆节", "香港与大湾区发展", "香港人才引进与培养",
                 "澳门回归25周年", "香港", "澳门");
         List<PostNews> postNews = crawNewsByList(keyWords);
-        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\source\\" + Sohu.class.getSimpleName() + ".json", postNews);
+        FileUtil.write("C:\\Users\\arane\\Desktop\\webCrawler\\src\\main\\resources\\news\\resource\\" + Sohu.class.getSimpleName() + ".json", postNews);
     }
 }

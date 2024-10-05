@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -25,22 +26,35 @@ public class Tencent {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
     private final static String pattern = "yyyy-MM-dd HH:mm:ss";
+    private final static String patternCommon = "yyyy-MM-dd";
     private static final Logger log = LogManager.getLogger(Tencent.class);
 
     @SneakyThrows
     public static List<PostNews> crawNews(String keyWord) {
+        LocalDate localDate = LocalDate.now().minusDays(3);
         // 请求体数据
         Map<String, Object> formData = Maps.newHashMap();
         Map<String, Object> header = Maps.newHashMap();
         formData.put("page", 0);
         formData.put("query", keyWord);
+        log.info("===="+keyWord+"======");
         formData.put("is_pc", 1);
         formData.put("hippy_custom_version", 24);
         formData.put("search_type", "all");
         formData.put("search_count_limit", 10);
         formData.put("appver", "15.5_qqnews_7.1.80");
         formData.put("suid", "8QIf3n5f7YQauj/Q5As=");
-        header.put("Cookie", "RK=/3O8wQ8jzb; ptcz=8823d683d501dff9e7ef4902f4b8696aa8a5430e67c159d1e1d1fd8214442b14; pgv_pvid=2510486800; fqm_pvqid=3ff38aa7-2f69-4e50-a422-09bfe4218ea8; eas_sid=R1D7S2O4r2j9V4s7K0f7u9q0B9; _qimei_uuid42=189140a2e131004965608f24a1530ec4594c3ba859; _qimei_fingerprint=85e32e7409ab508386db29a23efb30b8; _qimei_q36=; _qimei_h38=2db8275c65608f24a1530ec40200000ca18914; wap_wx_openid=o_lAF51keIiU5bB8iquZPb_0f5cI; wap_wx_appid=wx0b6d22ad9f2c4fa0; logintype=1; wap_refresh_token=84_jXo4L_11U0ZRURP4UVZzmSsRsCMZHhA5tQVG54sgMezKvIIU4OXj5_0Asl0IOr_F7cLPWDNXKGityQARXSJKbvGwi1WkdZnbs9OiBGyOyts; wap_encrypt_logininfo=ASuZHXPxJsxaHE13GyDl4zL4FQ6zye87Vv34Pd%2Bul%2BE9Ee%2B4iO0DgQXSXyk%2FD5VpgbbKVEQRf%2FEfFs0qH8NKWjTezrW7jBs0U5x2aUJp%2BsOm; pac_uid=8QIf3n5f7YQauj/Q5As=; backup_logintype=1; news_refresh_token=84_jXo4L_11U0ZRURP4UVZzmSsRsCMZHhA5tQVG54sgMezKvIIU4OXj5_0Asl0IOr_F7cLPWDNXKGityQARXSJKbvGwi1WkdZnbs9OiBGyOyts; news_vuserid=1199227745; news_appid=wx0b6d22ad9f2c4fa0; news_openid=o_lAF51keIiU5bB8iquZPb_0f5cI; news_main_login=wx; suid=user_8QIf3n5f7YQauj%2FQ5As%3D; current-city-name=gz; refresh_token=84_jXo4L_11U0ZRURP4UVZzmSsRsCMZHhA5tQVG54sgMezKvIIU4OXj5_0Asl0IOr_F7cLPWDNXKGityQARXSJKbvGwi1WkdZnbs9OiBGyOyts; vuserid=1199227745; appid=wx0b6d22ad9f2c4fa0; openid=o_lAF51keIiU5bB8iquZPb_0f5cI; main_login=wx; news_token=EoABxS_KcsYRN0OuozgEczbFuKLtuRtVGmBz9g5paJ8NTzgO6hTOhVH6fchmKKr6UKeEYVkso8jo5VyIIYC8aATwyPw_VSqBvUwrneVHlYgo_VA5zTjDmoCWW8SmK7fSTBFPvJx4Nr4FZDw54FhejWH0eAwsf70KV0-xSAGXPk3ayf0gEQ; backup_news_token=EoABxS_KcsYRN0OuozgEczbFuKLtuRtVGmBz9g5paJ8NTzgO6hTOhVH6fchmKKr6UKeEYVkso8jo5VyIIYC8aATwyPw_VSqBvUwrneVHlYgo_VA5zTjDmoCWW8SmK7fSTBFPvJx4Nr4FZDw54FhejWH0eAwsf70KV0-xSAGXPk3ayf0gEQ; wap_wx_access_token=84_e05U-LuPuyBz8NiPZCDo5ZX-Ai0zldTfj4ayIYEn3XoGfn-tt1ZXxfGB-pbKscw8k0rI-eMRzkuP4P03tyj6zg81dAf4iPpnkS3_K58200A; news_vusession=4Y2VCvrJ6tRYabO7U5vvLA.N; news_access_token=84_e05U-LuPuyBz8NiPZCDo5ZX-Ai0zldTfj4ayIYEn3XoGfn-tt1ZXxfGB-pbKscw8k0rI-eMRzkuP4P03tyj6zg81dAf4iPpnkS3_K58200A; vusession=4Y2VCvrJ6tRYabO7U5vvLA.N; access_token=84_e05U-LuPuyBz8NiPZCDo5ZX-Ai0zldTfj4ayIYEn3XoGfn-tt1ZXxfGB-pbKscw8k0rI-eMRzkuP4P03tyj6zg81dAf4iPpnkS3_K58200A; lcad_o_minduid=MqvwvTI47F0MwoQIdkwis7nbyc_siNXO; lcad_appuser=7EFBB6A191FD75A5; lcad_Lturn=435; lcad_LKBturn=226; lcad_LPVLturn=567; lcad_LPLFturn=897; lcad_LPSJturn=883; lcad_LBSturn=605; lcad_LVINturn=385; lcad_LDERturn=179");
+        header.put("Cookie", "pgv_pvid=389672557"+(int)(10 * Math.random())+"; " +
+                             "eas_sid=71t7K2H5A0U0G965b7d574V0s"+(int)(10 * Math.random())+";" +
+                             " pgv_info=ssid=s609997270"+(int)(10 * Math.random())+"; " +
+                             "_qimei_uuid42=18a01022c2d10034f58f3f961e7d7368996585a78"+random()+";" +
+                             " pac_uid=0_xKDWTiC6cR85D;" +
+                             " suid=user_0_xKDWTiC6cR85D; " +
+                             "current-city-name=jx;" +
+                             " _qimei_q32=d18b116b0b550b2e245e78299b3686d"+(int)(10 * Math.random())+"; " +
+                             "_qimei_q36=6fa56b59c9a9b59e192cc0e7300018f18a0"+(int)(10 * Math.random())+"; " +
+                             "_qimei_fingerprint=8957ce8bc73e9be966a9c2f1880b09e"+random()+";" +
+                             " _qimei_h38=2db8bf19f58f3f961e7d73680200000b718a0"+(int)(10 * Math.random()));
         String bsUrl = "https://i.news.qq.com/gw/pc_search/result";
         String infos = RequestUtil.commonPost(bsUrl, formData, Maps.newHashMap());
         // 获取搜索列新闻信息
@@ -48,13 +62,21 @@ public class Tencent {
         List<PostNews> res = parse(tree);
         Long totalNum = JsonNodeUtil.parseElement(tree, Long.class, "total_num");
         while (totalNum != null && 10L * ((int) formData.get("page") + 1) < totalNum) {
-            Thread.sleep(500);
+            Thread.sleep(5000+(long)(Math.random() * 500));
             formData.put("page", (int) formData.get("page") + 1);
             infos = RequestUtil.commonPost(bsUrl, formData, Maps.newHashMap());
             // 获取搜索列新闻信息
             tree = objectMapper.readTree(infos);
-            res.addAll(parse(tree));
+            for (PostNews postNews : parse(tree)) {
+                LocalDate date = TimeUtil.parseDate(postNews.getTime(), patternCommon);
+                if (date==null || localDate.isAfter(date)){
+                    totalNum = null;
+                }else {
+                    res.add(postNews);
+                }
+            }
         }
+        Thread.sleep(1000 * 60);
         return res;
     }
 
@@ -82,6 +104,7 @@ public class Tencent {
                 JsonNode imgArray = JsonNodeUtil.parseArray(news, "bigImage");
                 String imgUrl = null;
                 if (imgArray!=null && !imgArray.isEmpty()) imgUrl = imgArray.get(0).textValue();
+                if (StringUtils.isBlank(shareUrl)) continue;
                 String content = parseNewsContent(shareUrl);
                 PostNews postNews = PostNews.builder()
                         .title(title).time(time)
@@ -133,10 +156,18 @@ public class Tencent {
         return postNewsList;
     }
 
+    public static char random(){
+        // 创建一个Random对象
+        Random random = new Random();
+
+        // 生成随机小写字母
+        return (char) ('a' + random.nextInt(26));
+    }
+
     public static void main(String[] args) {
         List<String> keyWords = Lists.newArrayList("香港庆祝国庆节", "香港与大湾区发展", "香港人才引进与培养", "澳门回归25周年", "香港", "澳门");
         List<PostNews> postNews = crawNewsByList(keyWords);
-        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\source\\" + Tencent.class.getSimpleName() + ".json", postNews);
+        FileUtil.write("C:\\Users\\arane\\Desktop\\webCrawler\\src\\main\\resources\\news\\resource\\" + Tencent.class.getSimpleName() + ".json", postNews);
     }
 
 }

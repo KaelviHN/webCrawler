@@ -18,7 +18,7 @@ public class TimeUtil {
     public static LocalDate parseDate(String dateStr, String pattern) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-            return LocalDateTime.parse(dateStr, formatter).toLocalDate();
+            return LocalDate.parse(dateStr, formatter);
         } catch (Exception e) {
             // 解析失败，返回 null 或处理错误
             return null;

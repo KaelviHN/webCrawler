@@ -7,7 +7,10 @@ import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.LoadState;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import static com.bda.common.PlayWeightUtil.*;
 /**
@@ -61,10 +64,27 @@ public class Facebook {
             for (String id : ids) {
                 page = context.newPage();
                 page.navigate(fbHomeUrl + "/" + id + suffix);
-                Thread.sleep(1000 * 10);
+                Thread.sleep(1000*5+(int)(Math.random()*1000));
                 FBUser fbUser = getUserInfo(page, id);
                 List<Post> posts = Lists.newArrayList();
                 log.info(fbUser);
+                // 查找所有 article 标签
+                List<ElementHandle> articles = page.querySelectorAll("article");
+                for (ElementHandle article : articles) {
+                    // 查找子 article 标签
+                    List<ElementHandle> childArticles = article.querySelectorAll("article");
+                    // 如果没有子 article 标签，打印该 article 的文本内容
+                    if (!childArticles.isEmpty()) {
+                        StringBuilder content = new StringBuilder();
+                        childArticles.forEach(item -> content.append(item.textContent()));
+                        String time = article.querySelector("abbr").textContent();
+                        if (!time.contains("年")) time = LocalDate.now().getYear() + "年" + time;
+                        LocalDate localDate = TimeUtil.regexDate(time, regex);
+                        if (localDate != null) time = TimeUtil.parseTimeToCommonFormat(localDate);
+                        posts.add(Post.builder().content(content.toString()).time(time).build());
+                    }
+                }
+                /* 抓取link
                 List<ElementHandle> postLinkElements = getPostLinks(page);
                 postLinkElements.forEach(postLinkElement -> {
                     String link = postLinkElement.getAttribute("href");
@@ -79,7 +99,7 @@ public class Facebook {
                         Thread.sleep(1000 * 10);
                     } catch (InterruptedException ignored) {
                     }
-                });
+                });*/
                 fbUser.setPosts(posts);
                 fbUser.setFriends(getUserFriend(id, context));
                 fbUsers.add(fbUser);
@@ -87,7 +107,7 @@ public class Facebook {
             }
             browser.close();
         }
-        FileUtil.write("C:\\Users\\moon9\\Desktop\\webCrawler\\src\\main\\resources\\news\\source\\" + Facebook.class.getSimpleName() + ".json",
+        FileUtil.write("C:\\Users\\arane\\Desktop\\webCrawler\\src\\main\\resources\\news\\resource\\" + Facebook.class.getSimpleName() + ".json",
                 fbUsers);
     }
 
@@ -142,34 +162,18 @@ public class Facebook {
                     .username(username)
                     .build());
         });
-        Thread.sleep(1000 * 10);
+        Thread.sleep(1000*5+(int)(Math.random()*1000));
         page.close();
         return Post.builder().content(content).time(time).url(url).comments(comments).build();
     }
 
+    @SneakyThrows
     public static List<FBUser> getUserFriend(String id, BrowserContext context) {
+        Thread.sleep(1000*5+(int)(Math.random()*1000));
         List<FBUser> friends = Lists.newArrayList();
         Page page = context.newPage();
         page.navigate(homeUrl + "/" + id + friend_suffix);
-        int previousHeight = 0;
-        while (true) {
-            // 获取当前文档的高度
-            page.evaluate("document.body.scrollHeight");
-            int currentHeight;
-
-            // 向下滚动
-            page.mouse().wheel(0, 1000);
-            page.waitForTimeout(2000); // 等待加载数据
-
-            // 获取新的高度
-            currentHeight = (int)page.evaluate("document.body.scrollHeight");
-
-            // 如果高度没有变化，则停止滚动
-            if (currentHeight == previousHeight) {
-                break;
-            }
-            previousHeight = currentHeight;
-        }
+        toEnd(page);
         List<ElementHandle> elementHandles = page.querySelectorAll("x1i10hfl xjbqb8w x1ejq31n xd10rxx x1sy0etr x17r0tee x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz x1heor9g x1sur9pj xkrqix3 x1s688f");
         elementHandles.forEach(elementHandle -> {
             String url = elementHandle.getAttribute("href");

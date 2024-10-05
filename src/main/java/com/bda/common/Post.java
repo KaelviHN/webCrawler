@@ -17,8 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post {
+    private String author;
+    private String title;
     private String content;
     private String time;
     private String url;
+    private Integer commentsNums;
+    private Integer like;
+    private Integer unlike;
     private List<Comment> comments;
 }

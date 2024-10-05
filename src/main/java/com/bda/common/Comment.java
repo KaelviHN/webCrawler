@@ -17,4 +17,5 @@ import lombok.NoArgsConstructor;
 public class Comment {
     private String comment;
     private String username;
+    private String time;
 }
